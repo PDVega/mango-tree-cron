@@ -169,10 +169,8 @@ class Fruit {
   }
   
   let grove = new TreeGrove()
-  
-  // grove.inputTree(AppleTree, 5,1.8,7,true)
+
   grove.inputTree(MangoTree, 5,1.8,7,true)
-  // grove.inputTree(PearTree, 9,1.8,7,true)
   grove.nextYear()
   grove.nextYear()
   grove.nextYear()
