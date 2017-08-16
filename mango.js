@@ -1,4 +1,5 @@
 "use strict"
+var cron = require('node-cron');
 
 // release 0
 
@@ -103,85 +104,13 @@ class Fruit {
     console.log('MANGO TREE');
       //  driver code untuk release 0
     const mangoTree = new MangoTree();
-    do {
-      mangoTree.grow(7);
-      mangoTree.produceFruits(5);
-      mangoTree.harvest();
-      console.log(`[Year ${mangoTree.age} Report] Height = ${mangoTree.height} m | Fruits harvested = ${mangoTree.harvested}`)
-    } while (mangoTree.healthyStatus != false)
-    console.log(`The tree has met its end. :sad:`);
-
     
-  class TreeGrove{
-    constructor(){
-      this.year = 0
-      this.trees = []
-    }
-    
-    inputTree(type, age, height, fruit, health){
-      let tree = new type()
-      tree.name = type.name
-      tree.age = age
-      tree.height = height
-      tree.totalFruit = fruit
-      tree.healthyStatus = health
-      
-      this.trees.push(tree)
-    }
-    
-    nextYear(){
-      this.year++
-      for(let i = 0; i < this.trees.length; i++){
-        this.trees[i].grow()
+    cron.schedule('*/3 * * * * *', function(){
+      if(mangoTree.healthyStatus != false){
+        mangoTree.grow(7);
+        mangoTree.produceFruits(5);
+        mangoTree.harvest();
+        console.log(`[Year ${mangoTree.age} Report] Height = ${mangoTree.height} m | Fruits harvested = ${mangoTree.harvested}`)
       }
-    }
-    
-    showTrees(){
-      for(let i = 0; i < this.trees.length; i++){
-        console.log(this.trees[i].name);
-      }
-    }
-    
-    showAges(){
-      for(let i = 0; i < this.trees.length; i++){
-        console.log(`${this.trees[i].name}, age: ${this.trees[i].age}`);
-      }
-    }
-    
-    deadTrees(){
-      let dead_Trees = []
-      for(let i = 0; i < this.trees.length; i++){
-        if(!this.trees[i].healthyStatus){
-          dead_Trees.push(this.trees[i].name)
-        }
-      }
-      return dead_Trees
-    }
-    
-    mature_trees(){
-      let mature = []
-      for(let i = 0; i < this.trees.length; i++){
-        if(this.trees[i].totalFruit > 0 && this.trees[i].healthyStatus) mature.push(this.trees[i].name)
-      }
-      return mature
-    }
-    
-  }
+    });
   
-  let grove = new TreeGrove()
-
-  grove.inputTree(MangoTree, 5,1.8,7,true)
-  grove.nextYear()
-  grove.nextYear()
-  grove.nextYear()
-  grove.nextYear()
-  
-  console.log('+++++++++++++++++ SHOW TREES ++++++++++++++++');
-  grove.showTrees()
-  console.log('+++++++++++++++++ SHOW AGES ++++++++++++++++');
-  grove.showAges()
-  
-  console.log('++++++++++++++++ MATURE TREES +++++++++++++++');
-  console.log(grove.mature_trees());
-  console.log('+++++++++++++++++ DEAD TREES ++++++++++++++++');
-  console.log(grove.deadTrees());
