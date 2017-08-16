@@ -1,0 +1,15 @@
+{
+  "name": "mango-tree",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mango.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "pdvega",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^4.2.0",
+    "node-cron": "^1.2.1"
+  }
+}

@@ -1,5 +1,16 @@
 "use strict"
 var cron = require('node-cron');
+var firebase = require('firebase')
+var config = {
+  apiKey: "AIzaSyAK9yR2gwEfeLIfSzqE_GzBNgsdcEzz9xU",
+  authDomain: "mango-cron.firebaseapp.com",
+  databaseURL: "https://mango-cron.firebaseio.com",
+  projectId: "mango-cron",
+  storageBucket: "mango-cron.appspot.com",
+  messagingSenderId: "751575031116"
+};
+  firebase.initializeApp(config);
+  var database = firebase.database()
 
 // release 0
 
@@ -110,6 +121,10 @@ class Fruit {
         mangoTree.grow(7);
         mangoTree.produceFruits(5);
         mangoTree.harvest();
+        database.ref('/mango').set({
+        age: mangoTree.age,
+        height: mangoTree.height,
+        fruit: mangoTree.harvested})
         console.log(`[Year ${mangoTree.age} Report] Height = ${mangoTree.height} m | Fruits harvested = ${mangoTree.harvested}`)
       }
     });
