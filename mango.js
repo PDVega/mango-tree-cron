@@ -116,8 +116,8 @@ class Fruit {
       //  driver code untuk release 0
     const mangoTree = new MangoTree();
     
-    cron.schedule('*/3 * * * * *', function(){
-      if(mangoTree.healthyStatus != false){
+    let grow = cron.schedule('*/3 * * * * *', function(){
+      if (mangoTree.healthyStatus != false) {
         mangoTree.grow(7);
         mangoTree.produceFruits(5);
         mangoTree.harvest();
@@ -126,6 +126,9 @@ class Fruit {
         height: mangoTree.height,
         fruit: mangoTree.harvested})
         console.log(`[Year ${mangoTree.age} Report] Height = ${mangoTree.height} m | Fruits harvested = ${mangoTree.harvested}`)
+      } else {
+        grow.stop()
+        console.log('Mango Tree is dead');
       }
     });
   

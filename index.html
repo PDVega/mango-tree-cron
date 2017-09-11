@@ -3,12 +3,30 @@
   <head>
     <meta charset="utf-8">
     <title>Mango Tree</title>
+    <link rel="stylesheet" href="https://bootswatch.com/united/bootstrap.min.css">
   </head>
   <body>
     <div id="app">
-      <div class="container" v-for="mango in mangoes">
-        <h2>{{ mango['.key']}}: {{ mango['.value']}}</h2>
+      <br><br>
+      <div class="container">
+        <div class="col-md-5 col-md-offset-3">
+        <div class="panel panel-info">
+          <div class="panel-heading text-center">
+            <h1>Mango Tree</h1>
+          </div>
+          <div class="panel-body text-center">
+            <img v-if="age2" src="./assets/1.gif">
+            <img v-if="age5" src="./assets/2.gif">
+            <img v-if="age6" src="./assets/3.jpg">
+          </div>
+          <div class="panel-footer">
+            <td><h2><strong>Age: </strong> {{mangoes.age}}</h2></td>
+            <td><h2><strong>Height: </strong> {{mangoes.height}}</h2></td>
+            <td><h2><strong>Fruit: </strong> {{mangoes.fruit}}</h2></td>
+          </div>
+        </div>
       </div>
+        </div>
     </div>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://gstatic.com/firebasejs/4.0.0/firebase.js"></script>
@@ -30,9 +48,23 @@
       data: {
         msg: 'Mango Tree Simulator'
       },
+      computed: {
+        age2 () {
+          return this.mangoes.age >0 && this.mangoes.age <=2
+        },
+        age5 () {
+          return this.mangoes.age >2 && this.mangoes.age <=5
+        },
+        age6 () {
+          return this.mangoes.age >5 && this.mangoes.age <=15
+        }
+      },
       firebase: function () {
         return {
-          mangoes: db.ref('mango')
+          mangoes: {
+            source: db.ref('mango'),
+            asObject: true
+          }
         }
       }
     })
